@@ -409,7 +409,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# 📌 Function to Load Data from JSON
+
 def load_data():
     try:
         if os.path.exists(DB_FILE):
@@ -421,7 +421,6 @@ def load_data():
         st.error(f"Error loading data: {e}")
         return []
 
-# 📌 Function to Save Data to JSON
 def save_data(data):
     try:
         with open(DB_FILE, "w") as file:
@@ -429,7 +428,7 @@ def save_data(data):
     except Exception as e:
         st.error(f"Error saving data: {e}")
 
-# 📌 Function to Add Book
+
 def add_book(title, author, genre, year, status):
     books = load_data()
     new_id = str(len(books) + 1) if books else "1"
@@ -465,17 +464,15 @@ def search_book(query):
     books = load_data()
     return [book for book in books if query.lower() in book["title"].lower() or query.lower() in book["author"].lower()]
 
-# Title
+
 st.markdown('<p class="stTitle">📚 Personal Library Management System</p>', unsafe_allow_html=True)
 
-# Sidebar Menu
 menu = st.sidebar.selectbox("Menu", ["🏠 Home", "➕ Add Book", "🔍 Search Book", "✏️ Edit Book", "🗑️ Remove Book"])
 
 if menu == "🏠 Home":
     st.markdown('<p class="stHeader">🏠 Home</p>', unsafe_allow_html=True)
     books = load_data()
 
-    # Quick Overview Section
     st.markdown('<div class="quick-overview">', unsafe_allow_html=True)
     st.markdown("### Quick Overview")
     col1, col2 = st.columns(2)
@@ -542,7 +539,7 @@ elif menu == "🔍 Search Book":
         if query:
             results = search_book(query)
             if results:
-                st.table(pd.DataFrame(results))  # Use pandas DataFrame to display results
+                st.table(pd.DataFrame(results))  
             else:
                 st.warning("❌ No matching books found!")
         else:
